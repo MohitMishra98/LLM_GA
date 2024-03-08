@@ -55,4 +55,5 @@ for chunk in response:
 #response is equivalent to range(0,10)
 #.text is attribute of object chunk
 #note that every chunk will be printed on a seperate line
-
+  
+  
