@@ -73,3 +73,4 @@ for message in chat.history:
 
 print(hist)
 """
+print(chat.history)
