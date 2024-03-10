@@ -18,6 +18,9 @@ genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel("gemini-1.0-pro")
 
 
+#handling chats from raw api
+#this method is more effective
+
 
 #structure of the conversion list will be like this
 messages = [{"role":"user","parts":["user message1"]},
