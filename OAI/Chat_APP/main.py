@@ -10,7 +10,7 @@ completion = client.chat.completions.create(
 )
 
 while True:
-    prompt = input("Enter your prompt here")
+    prompt = input("Enter your prompt here : ")
 
     if not prompt:
         break
@@ -22,4 +22,3 @@ while True:
     messages.append({"role":"assistant","content":completion.choices[0].message.content})
 
     print(completion.choices[0].message.content)
-    
