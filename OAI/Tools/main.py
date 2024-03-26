@@ -5,13 +5,15 @@ client = OpenAI()
 
 prompt = "set the temprature to 300 kelvin"
 
+temperature=1
+room_number=0
+
+
 #this function is used to set the temprature of a specific value in specific room
 def set_temp(temp:int,room:int):
-    global temprature,room_number
-    temprature = temp
+    global temperature,room_number
+    temperature = temp
     room_number = room
-
-
 
 
 completion = client.chat.completions.create(
@@ -30,28 +32,29 @@ completion = client.chat.completions.create(
           "type": "integer",
           "description": "The temperature value to set"
         },
-        "room": {
+        "room_number": {
           "type": "integer",
           "description": "The room number to set the temperature in"
         }
       },
-      "required": ["temperature", "room"]
+      "required": ["temperature", "room_number"]
     }
   }
 }
 ]
 )
-
-#visit https://platform.openai.com/docs/api-reference/chat/object to see the structuring of data
-
-var1 = completion.choices[0].message.tool_calls[0].function.arguments
-var2 = completion.choices[0].message.tool_calls[0].function.name
-
-print(var1)
-print(var2)
+#use tools to convert any function into this format by giving some examples
 
 print(completion)
 
-completion_json = json.loads(completion.choices[0].message.tool_calls[0].function.arguments)
-print(completion_json["temperature"])
-#creating a function to call function
+#visit https://platform.openai.com/docs/api-reference/chat/object to see the structuring of data
+arguments_json = json.loads(completion.choices[0].message.tool_calls[0].function.arguments)
+
+function_name = completion.choices[0].message.tool_calls[0].function.name
+
+print(temperature,room_number)
+
+if function_name == "set_temp":
+    set_temp(int(arguments_json["temperature"]),int(arguments_json["room_number"]))
+
+print(temperature,room_number)
