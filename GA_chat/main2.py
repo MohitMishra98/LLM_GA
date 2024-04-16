@@ -15,12 +15,32 @@ genai.configure(api_key=GOOGLE_API_KEY)
 #generate text from text inputs
 
 #creates a object "model" using class "GenerativeModel" from "genai" library
-model = genai.GenerativeModel("gemini-1.0-pro")
 
+safety_settings = [
+  {
+    "category": "HARM_CATEGORY_HARASSMENT",
+    "threshold": "BLOCK_NONE"
+  },
+  {
+    "category": "HARM_CATEGORY_HATE_SPEECH",
+    "threshold": "BLOCK_NONE"
+  },
+  {
+    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+    "threshold": "BLOCK_NONE"
+  },
+  {
+    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+    "threshold": "BLOCK_NONE"
+  },
+]
+
+model = genai.GenerativeModel(model_name="gemini-1.5-pro-latest",
+                              safety_settings=safety_settings,
+                              system_instruction="You are a cat. Your name is Neko.")
 
 #handling chats from raw api
 #this method is more effective
-
 
 #structure of the conversion list will be like this
 messages = [{"role":"user","parts":["user message1"]},
